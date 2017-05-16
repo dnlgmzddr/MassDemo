@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="products-table">
+            <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Referencia
+                </th>
+                <th>
+                    Precio
+                </th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "api/products",
+                method: "GET",
+                accepts: "application/json",
+                success: function (data) {
+                    //console.log("data", data);
+                    for (var i = 0; i < data.length; i++) {
+                        var p = data[i];
+                        $("#products-table tbody").append(
+                            `<tr><td>${p.Id}</td><td>${p.Nombre}</td><td>${p.Referencia}</td><td>${p
+                            .Precio}</td></tr>`);
+                    }
+                    
+                }
+            });
+        });
+    </script>
+}
